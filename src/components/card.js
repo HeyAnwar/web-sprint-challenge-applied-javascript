@@ -25,8 +25,8 @@ const Card = (article) => {
 
   cardDiv.appendChild(headlineDiv)
   cardDiv.appendChild(authorDiv)
-  cardDiv.appendChild(imgDiv)
-  cardDiv.appendChild(image)
+  authorDiv.appendChild(imgDiv)
+  imgDiv.appendChild(image)
   authorDiv.appendChild(authorSpan)
 
   return cardDiv
@@ -52,23 +52,16 @@ const Card = (article) => {
   //
 }
 import axios from 'axios'
-
+const cardEntry = document.querySelector('.cards-container')
 const cardAppender = (selector) => {
-  const cardEntry = document.querySelector('.cards-container')
   axios.get(`https://lambda-times-api.herokuapp.com/articles`)
   .then(res => {
     const articles = res.data.articles
-    //loop through articles & get keys(javascript,technology etc..)
-    console.log(res)
     for (let topic in articles) {
       for(let articles of articles[topic]){
         cardEntry.appendChild(Card(articles))
       }
       }
-    //use key to get articles array for topic
-    //for each topic create card & append to cardEntry
-   
-    
   })
   .catch((err) => {
     console.log(err)
