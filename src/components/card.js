@@ -26,7 +26,7 @@ const Card = (article) => {
   cardDiv.appendChild(headlineDiv)
   cardDiv.appendChild(authorDiv)
   cardDiv.appendChild(imgDiv)
-  imgDiv.appendChild(image)
+  cardDiv.appendChild(image)
   authorDiv.appendChild(authorSpan)
 
   return cardDiv
@@ -51,8 +51,29 @@ const Card = (article) => {
   // </div>
   //
 }
+import axios from 'axios'
 
 const cardAppender = (selector) => {
+  const cardEntry = document.querySelector('.cards-container')
+  axios.get(`https://lambda-times-api.herokuapp.com/articles`)
+  .then(res => {
+    const articles = res.data.articles
+    //loop through articles & get keys(javascript,technology etc..)
+    console.log(res)
+    for (let topic in articles) {
+      for(let articles of articles[topic]){
+        cardEntry.appendChild(Card(articles))
+      }
+      }
+    //use key to get articles array for topic
+    //for each topic create card & append to cardEntry
+   
+    
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
